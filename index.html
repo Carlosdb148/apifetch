@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <form>
+        <h2>Login</h2>
+        <label for="name">Name</label><br>
+        <input type="text" id="name" name="name" /><br>
+        <label for="password">Password</label><br>
+        <input type="text" id="password" name="password" />
+        <div id="button" class="button">LOGIN</div> 
+    </form>
+    <div class="container" id="container">
+        <div class="flex-start">
+            <div class="tries">5 tries left</div>
+            <div class="timer"><span id="count">10</span> minutes</div>
+        </div><br>
+        <label for="expression">Regular expression</label><br>
+        <input type="text" id="expression" name="expression"/><br>
+        <p id="check" class="check">Checking...</p>
+        <div id="button2" class="button">CHECK</div> 
+    </div>
+    <script src="client.js"></script>
+</body>
+</html>
