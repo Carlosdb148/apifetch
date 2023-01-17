@@ -1,7 +1,7 @@
 var button = document.getElementById('button');
 var button2 = document.getElementById('button2');
-var n = document.getElementById('name').value;
-var p = document.getElementById('password').value;
+var n = document.getElementById('name');
+var p = document.getElementById('password')
 var token;
 
 async function login(url, data) {
@@ -17,19 +17,19 @@ async function login(url, data) {
 
 async function init() {
     await login('http://localhost:3001/login', {
-        name: n,
-        password: p
+        name: n.value,
+        password: p.value
     }).then(res => {
         token = res.data.token;
-        if(token && n && p ){
+        if(token && n.value && p.value ){
             document.querySelector('form').style.display = 'none';
             document.getElementById('container').style.display = 'block';
-            this.expression();
         }else{
             let p = document.createElement('p');
             p.innerHTML = 'Fill the inputs'
             document.querySelector('form').appendChild(p);
         }
+        openWsConnection();
         console.log("Token: " + token);
     }).catch(error => {
         console.log(error);
@@ -53,14 +53,25 @@ async function request(url, data) {
 }
 
 
-function expression(){
-    button2.addEventListener('click', () =>{
-        request("http://localhost:3001/request", 
-        {
-            regular_exp : document.getElementById('expression').value
-        })
-        .then(response => {
-            console.log(response);
-        }).catch(response => console.log(response));
-    })
+function openWsConnection(){
+
+    ws = new WebSocket("ws://localhost:3001/request?token=" + token);
+
+    ws.onopen = (event) => {
+        console.log("WebSocket connection established.");
+    }
+
+    // Display any new messages received in the `messageDiv`.
+    ws.onmessage = (event) => {
+        console.log("WebSocket message received: ", event.data);
+
+    }
+
+    ws.onerror = (event) => {
+        console.log("WebSocket error received: ", event);
+    }
+
+    ws.onclose = (event) => {
+        console.log("WebSocket connection closed.");
+    }
 }

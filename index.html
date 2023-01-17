@@ -6,6 +6,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script>
+
+        $(document).ready(function(){
+        
+        $("#button2").click(function(){
+        
+        $.ajax({
+        
+            method: "GET",
+
+            CORS: false ,
+            
+            url: "script.py",
+            
+            data: {"place" : 'value'},
+            
+            dataType: "text",
+            
+            success: function(result){
+            
+            var data=JSON.parse(result);
+            
+            console.log(result);
+            
+            }
+        
+        });
+        
+        });
+    });
+        
+        </script>
 </head>
 <body>
     <form>
@@ -21,10 +54,11 @@
             <div class="tries">5 tries left</div>
             <div class="timer"><span id="count">10</span> minutes</div>
         </div><br>
-        <label for="expression">Regular expression</label><br>
-        <input type="text" id="expression" name="expression"/><br>
-        <p id="check" class="check">Checking...</p>
-        <div id="button2" class="button">CHECK</div> 
+            <label for="expression">Regular expression</label><br>
+            <input type="text" id="expression" name="expression"/><br>
+            <p id="check" class="check">Checking...</p>
+            <input type="submit" id="button2" class="button" value="CHECK"></div> 
+        
     </div>
     <script src="client.js"></script>
 </body>
