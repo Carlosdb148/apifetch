@@ -7,38 +7,6 @@
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
     <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script>
-
-        $(document).ready(function(){
-        
-        $("#button2").click(function(){
-        
-        $.ajax({
-        
-            method: "GET",
-
-            CORS: false ,
-            
-            url: "script.py",
-            
-            data: {"place" : 'value'},
-            
-            dataType: "text",
-            
-            success: function(result){
-            
-            var data=JSON.parse(result);
-            
-            console.log(result);
-            
-            }
-        
-        });
-        
-        });
-    });
-        
-        </script>
 </head>
 <body>
     <form>

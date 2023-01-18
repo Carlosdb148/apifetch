@@ -59,6 +59,7 @@ function openWsConnection(){
 
     ws.onopen = (event) => {
         console.log("WebSocket connection established.");
+        ws.send(token);
     }
 
     // Display any new messages received in the `messageDiv`.
