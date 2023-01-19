@@ -2,7 +2,9 @@ var button = document.getElementById('button');
 var button2 = document.getElementById('button2');
 var n = document.getElementById('name');
 var p = document.getElementById('password')
+var expression = document.getElementById('expression')
 var token;
+var ws;
 
 async function login(url, data) {
     const response = await fetch(url, {
@@ -26,7 +28,7 @@ async function init() {
             document.getElementById('container').style.display = 'block';
         }else{
             let p = document.createElement('p');
-            p.innerHTML = 'Fill the inputs'
+            p.innerHTML = 'Fill the inputs';
             document.querySelector('form').appendChild(p);
         }
         openWsConnection();
@@ -54,12 +56,10 @@ async function request(url, data) {
 
 
 function openWsConnection(){
-
-    ws = new WebSocket("ws://localhost:3001/request?token=" + token);
+    ws = new WebSocket("ws://localhost:3001/request");
 
     ws.onopen = (event) => {
         console.log("WebSocket connection established.");
-        ws.send(token);
     }
 
     // Display any new messages received in the `messageDiv`.
@@ -76,3 +76,8 @@ function openWsConnection(){
         console.log("WebSocket connection closed.");
     }
 }
+
+
+button2.addEventListener('click', () => {
+    ws.send(JSON.stringify({ expression : expression.value}));
+})

@@ -2,7 +2,7 @@ const express = require('express');
 const bodyparser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const cors = require("cors");
-require('dotenv').config()
+require('dotenv').config();
 var WebSocketServer = require("ws").Server;
 
 const app = express();
@@ -20,9 +20,8 @@ app.post("/login", async (req, res) => {
     // create token
     const token = jwt.sign({
         name: req.body.name,
-        id: req.body.id
-    }, process.env.TOKEN_SECRET, 
-    { expiresIn : 600 });
+        password: req.body.password
+    }, process.env.TOKEN_SECRET);
 
     res.header('auth-token', token).json({
         error: null,
@@ -34,25 +33,27 @@ app.post("/login", async (req, res) => {
 const wss = new WebSocketServer({ server: server, path: '/request' });
 
 wss.on('connection', (ws, req) => {
-  var token = url.parse(req.url, true).query.token;
+    console.log('conection established');
+//   var token = url.parse(req.url, true).query.token;
 
-  jwt.verify(token, jwtSecret, (err, decoded) => {
-      if (err) {
-          ws.close();
-      } else {
-          ws.send('You are not logged');
-      }
-  });
+//   jwt.verify(token, jwtSecret, (err, decoded) => {
+//       if (err) {
+//           ws.close();
+//       } else {
+//           ws.send('You are not logged');
+//       }
+//   });
 
   ws.on('message', (data) => {
-        jwt.verify(token, jwtSecret, (err, decoded) => {
-            if (err) {
-                client.send("Error: Your token is no longer valid. Please reauthenticate.");
-                client.close();
-            } else {
-                client.send(wsUsername + ": " + data);
-            }
-    })
+    //     jwt.verify(token, jwtSecret, (err, decoded) => {
+    //         if (err) {
+    //             client.send("Error: Your token is no longer valid. Please reauthenticate.");
+    //             client.close();
+    //         } else {
+    //             client.send(wsUsername + ": " + data);
+    //         }
+    // })
+    console.log(data.toString());
 });
 
 });
